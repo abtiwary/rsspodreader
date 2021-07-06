@@ -1,12 +1,11 @@
 package main
 
 import (
-	"encoding/xml"
 	"fmt"
-	"github.com/abtiwary/rsspodreader/podrss"
-	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/abtiwary/rsspodreader/podrss"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -25,30 +24,22 @@ func main() {
 		log.WithError(err).Fatal("cannot determine current working directory")
 	}
 
-	rssFilePath := filepath.Join(curDir, "rss_examples", "cppcast.rss")
+	rssWorkDir := filepath.Join(curDir, "tempfiles")
 
-	rssFile, err := os.Open(rssFilePath)
+	cppCast := podrss.NewPodRss("Cpp Cast",
+		"https://cppcast.libsyn.com/rss",
+		"74a4a440-fa80-49be-9bbb-589a3b8a7e37.rss",
+		rssWorkDir,
+	)
+
+	pItems, err := cppCast.GetItems()
 	if err != nil {
-		log.WithError(err).WithField("rss_file", rssFile).Fatal("could not open the rss file")
+		log.WithError(err).Fatal("error getting podcast items")
 	}
 
-	rssBytes, err := io.ReadAll(rssFile)
-	if err != nil {
-		log.WithError(err).WithField("rss_file", rssFile).Fatal("could not read the rss file")
-	}
+	fmt.Printf("parsed %v items\n", len(pItems))
 
-	var podChannel podrss.PodChannel
-	err = xml.Unmarshal(rssBytes, &podChannel)
-	if err != nil {
-		log.WithError(err).Fatal("could not unmarshal the rss file")
-	}
-
-	fmt.Println(podChannel.PodChan.Title)
-	fmt.Println(podChannel.PodChan.PubDate)
-
-	fmt.Printf("parsed %v items\n", len(podChannel.PodChan.Items))
-
-	for _, itm := range podChannel.PodChan.Items {
+	for _, itm := range pItems {
 		fmt.Println(itm.Title)
 		fmt.Println(itm.PubDate)
 		//fmt.Println(itm.Description)
