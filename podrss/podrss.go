@@ -16,17 +16,17 @@ type PodcastFeedReader interface {
 }
 
 type PodRss struct {
-	Title string
-	URL string
-	FileName string
+	Title      string
+	URL        string
+	FileName   string
 	WorkingDir string
 }
 
 func NewPodRss(title, url, filenm, workdir string) PodRss {
 	return PodRss{
-		Title: title,
-		URL: url,
-		FileName: filenm,
+		Title:      title,
+		URL:        url,
+		FileName:   filenm,
 		WorkingDir: workdir,
 	}
 }
