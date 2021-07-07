@@ -25,10 +25,14 @@ func main() {
 	}
 
 	rssWorkDir := filepath.Join(curDir, "tempfiles")
+	imagesDir := filepath.Join(curDir, "images")
+	audioDir := filepath.Join(curDir, "audio")
 
 	cppCast := podrss.NewPodRss("Cpp Cast",
 		"https://cppcast.libsyn.com/rss",
 		"74a4a440-fa80-49be-9bbb-589a3b8a7e37.rss",
+		imagesDir,
+		audioDir,
 		rssWorkDir,
 	)
 
