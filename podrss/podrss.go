@@ -41,7 +41,7 @@ func NewPodRss(title, url, filenm, imgdir, audiodir, workdir string) PodRss {
 // and parses it. It downloads a podcast image if needed, and returns a list
 // of all the podcast items.
 func (p PodRss) GetItems() ([]PodItem, error) {
-	flPath := filepath.Join(p.WorkDir, p.FileName)
+	flPath := filepath.Join(p.WorkDir, fmt.Sprintf("%v.%v", p.FileName, "rss"))
 	fexists, err := CheckIfFileExists(flPath)
 	if err != nil {
 		return nil, errors.Annotatef(err, "could not get items")

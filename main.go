@@ -30,7 +30,7 @@ func main() {
 
 	cppCast := podrss.NewPodRss("Cpp Cast",
 		"https://cppcast.libsyn.com/rss",
-		"74a4a440-fa80-49be-9bbb-589a3b8a7e37.rss",
+		"74a4a440-fa80-49be-9bbb-589a3b8a7e37",
 		imagesDir,
 		audioDir,
 		rssWorkDir,
